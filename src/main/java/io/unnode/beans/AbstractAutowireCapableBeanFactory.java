@@ -1,10 +1,13 @@
 package io.unnode.beans;
 
 import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.util.StrUtil;
+import io.unnode.beans.adapter.DisposableBeanAdapter;
 import io.unnode.beans.support.*;
 import io.unnode.utils.BeansException;
 
 import java.lang.reflect.Constructor;
+import java.lang.reflect.Method;
 
 public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFactory implements AutowireCapableBeanFactory {
 
@@ -22,6 +25,10 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
         } catch (Exception e) {
             throw new BeansException("对象创建失败" + beanName,e);
         }
+
+        // 注册实现了 DisposableBean 接口的 Bean 对象
+        registerDisposableBeanIfNecessary(beanName, bean, beanDefinition);
+
         addSingleton(beanName, bean);
         return bean;
     }
@@ -58,7 +65,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
         }
     }
 
-    private Object initializeBean(String beanName, Object bean, BeanDefinition beanDefinition) {
+    private Object initializeBean(String beanName, Object bean, BeanDefinition beanDefinition) throws Exception {
         // 1. 执行 BeanPostProcessor Before 处理
         Object wrappedBean = applyBeanPostProcessorsBeforeInitialization(bean, beanName);
 
@@ -70,7 +77,27 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
         return wrappedBean;
     }
 
-    private void invokeInitMethods(String beanName, Object wrappedBean, BeanDefinition beanDefinition) {
+    /**
+     * 方法 invokeInitMethods 执行实现 InitializingBean 接口的操作，处理 afterPropertiesSet 方法
+     * 另外一个是判断配置信息 init-method 是否存在，执行反射调用 initMethod.invoke(bean)
+     * 这两种方式都可以在 Bean 对象初始化过程中进行处理加载 Bean 对象中的初始化操作，以实现让使用者可以额外新增加自己想要的动作
+     */
+    private void invokeInitMethods(String beanName, Object bean, BeanDefinition beanDefinition) throws Exception {
+
+        // 实现接口 InitializingBean
+        if (bean instanceof InitializingBean) {
+            ((InitializingBean) bean).afterPropertiesSet();
+        }
+
+        // 配置信息 init-method（避免二次销毁）
+        String initMethodName = beanDefinition.getInitMethodName();
+        if (StrUtil.isNotEmpty(initMethodName)) {
+            Method initMethod = beanDefinition.getBeanClass().getMethod(initMethodName);
+            if (null == initMethod) {
+                throw new BeansException("初始化对象不存在" + initMethodName + "对象名：" + beanName);
+            }
+            initMethod.invoke(bean);
+        }
 
     }
 
@@ -102,5 +129,11 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 
     public void setInstantiationStrategy(InstantiationStrategy instantiationStrategy) {
         this.instantiationStrategy = instantiationStrategy;
+    }
+
+    protected void registerDisposableBeanIfNecessary(String beanName,Object bean,BeanDefinition beanDefinition){
+        if (bean instanceof DisposableBean || StrUtil.isNotEmpty(beanDefinition.getDestroyMethodName())) {
+            registerDisposableBean(beanName, new DisposableBeanAdapter(bean, beanName, beanDefinition));
+        }
     }
 }
