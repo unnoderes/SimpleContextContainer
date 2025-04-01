@@ -9,12 +9,24 @@
         <property name="userDao" ref="userDao"/>
     </bean>
 -->
+
+<!--
     <bean id="userDao" class="test08.bean.UserDao" init-method="initDataMethod" destroy-method="destroyDataMethod"/>
 
     <bean id="userService" class="test08.bean.UserService">
         <property name="uId" value="10001"/>
         <property name="company" value="腾讯"/>
         <property name="location" value="深圳"/>
+        <property name="userDao" ref="userDao"/>
+    </bean>
+-->
+
+    <bean id="userDao" class="test09.bean.UserDao" init-method="initDataMethod" destroy-method="destroyDataMethod"/>
+
+    <bean id="userService" class="test09.bean.UserService">
+        <property name="uId" value="10001"/>
+        <property name="company" value="xxx"/>
+        <property name="location" value="yyy"/>
         <property name="userDao" ref="userDao"/>
     </bean>
 

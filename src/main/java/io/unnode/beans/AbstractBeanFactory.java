@@ -3,11 +3,17 @@ package io.unnode.beans;
 import io.unnode.beans.support.BeanDefinition;
 import io.unnode.beans.support.DefaultSingletonBeanRegistry;
 import io.unnode.utils.BeansException;
+import io.unnode.utils.ClassUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public abstract class AbstractBeanFactory extends DefaultSingletonBeanRegistry implements ConfigurableBeanFactory {
+
+
+    /** ClassLoader to resolve bean class names with, if necessary */
+    private ClassLoader beanClassLoader = ClassUtils.getDefaultClassLoader();
+
 
     /** BeanPostProcessors to apply in createBean */
     private final List<BeanPostProcessor> beanPostProcessors = new ArrayList<BeanPostProcessor>();
@@ -56,4 +62,7 @@ public abstract class AbstractBeanFactory extends DefaultSingletonBeanRegistry i
         return this.beanPostProcessors;
     }
 
+    public ClassLoader getBeanClassLoader() {
+        return this.beanClassLoader;
+    }
 }
