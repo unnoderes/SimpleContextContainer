@@ -3,6 +3,7 @@ package io.unnode.context;
 import io.unnode.beans.BeanFactoryPostProcessor;
 import io.unnode.beans.BeanPostProcessor;
 import io.unnode.beans.ConfigurableListableBeanFactory;
+import io.unnode.beans.aware.ApplicationContextAwareProcessor;
 import io.unnode.core.support.DefaultResourceLoader;
 import io.unnode.utils.BeansException;
 
@@ -24,12 +25,22 @@ import java.util.Map;
 
 public abstract class AbstractApplicationContext extends DefaultResourceLoader implements ConfigurableApplicationContext {
 
+    // 整个 Spring 容器的操作过程
     @Override
     public void refresh() throws BeansException {
         // 创建beanFactory，加载beanDefinition
         refreshBeanFactory();
         // 获取beanFactory
         ConfigurableListableBeanFactory beanFactory = getBeanFactory();
+
+        /**
+         *
+         * 新增注册 BeanPostProcessor
+         * 添加 ApplicationContextAwareProcessor;
+         * 让继承自 ApplicationContextAware 的 Bean 对象都能感知所属的 ApplicationContext
+         */
+        beanFactory.addBeanPostProcessor(new ApplicationContextAwareProcessor(this));
+
         // 在bean实例化前执行前执行自定义操作方法 BeanFactoryPostProcessor
         invokeBeanFactoryPostProcessors(beanFactory);
         // BeanPostProcessor 需要提前于其他 Bean 对象实例化之前执行注册操作
