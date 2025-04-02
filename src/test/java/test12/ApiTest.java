@@ -48,7 +48,7 @@ public class ApiTest {
         // 代理对象(Cglib2AopProxy)
         IUserService proxy_cglib = (IUserService) new Cglib2AopProxy(advisedSupport).getProxy();
         // 测试调用
-        System.out.println("测试结果：" + proxy_cglib.register("花花"));
+        System.out.println("测试结果：" + proxy_cglib.register("xxx"));
     }
 
     @Test

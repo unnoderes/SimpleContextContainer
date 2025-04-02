@@ -60,6 +60,7 @@
     -->
 
 
+<!--
     <bean id="userService" class="test13.UserService"/>
 
     <bean class="io.unnode.aop.DefaultAdvisorAutoProxyCreator"/>
@@ -74,5 +75,8 @@
         <property name="expression" value="execution(* test13.IUserService.*(..))"/>
         <property name="advice" ref="methodInterceptor"/>
     </bean>
+    -->
+
+
 
 </beans>
