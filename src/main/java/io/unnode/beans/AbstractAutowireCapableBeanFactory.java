@@ -54,6 +54,19 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
         return getInstantiationStrategy().instantiate(beanDefinition, beanName, constructor, args);
     }
 
+    protected void registerDisposableBeanIfNecessary(String beanName, Object bean, BeanDefinition beanDefinition) {
+        /**
+         *
+         * 非 Singleton 类型的 Bean 不执行销毁方法
+         * 如果是原型模式那么就不会存放到内存中，每次获取都重新创建对象，另外非 Singleton 类型的 Bean 不需要执行销毁方法
+         *
+         */
+        if (!beanDefinition.isSingleton()) return;
+        if (bean instanceof DisposableBean || StrUtil.isNotEmpty(beanDefinition.getDestroyMethodName())) {
+            registerDisposableBean(beanName, new DisposableBeanAdapter(bean, beanName, beanDefinition));
+        }
+    }
+
     // bean 依赖注入
     protected void applyPropertyValues(String beanName, Object bean, BeanDefinition beanDefinition){
         try {
@@ -157,17 +170,4 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
         this.instantiationStrategy = instantiationStrategy;
     }
 
-    protected void registerDisposableBeanIfNecessary(String beanName, Object bean, BeanDefinition beanDefinition) {
-        /**
-         *
-         * 非 Singleton 类型的 Bean 不执行销毁方法
-         * 如果是原型模式那么就不会存放到内存中，每次获取都重新创建对象，另外非 Singleton 类型的 Bean 不需要执行销毁方法
-         *
-         */
-        if (!beanDefinition.isSingleton()) return;
-
-        if (bean instanceof DisposableBean || StrUtil.isNotEmpty(beanDefinition.getDestroyMethodName())) {
-            registerDisposableBean(beanName, new DisposableBeanAdapter(bean, beanName, beanDefinition));
-        }
-    }
 }

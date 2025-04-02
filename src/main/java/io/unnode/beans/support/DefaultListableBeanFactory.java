@@ -15,7 +15,6 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
     @Override
     public BeanDefinition getBeanDefinition(String beanName) {
         BeanDefinition beanDefinition = beanDefinitionMap.get(beanName);
-        // map内不存在bean名所对应的bean定义时则抛对象不存在
         if (beanDefinition == null) throw new BeansException("找不到对象" + beanName);
         return beanDefinition;
     }
