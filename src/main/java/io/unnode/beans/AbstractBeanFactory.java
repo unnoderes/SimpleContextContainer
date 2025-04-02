@@ -1,5 +1,6 @@
 package io.unnode.beans;
 
+import io.unnode.beans.annotationconfig.autodi.StringValueResolver;
 import io.unnode.beans.support.BeanDefinition;
 import io.unnode.utils.BeansException;
 import io.unnode.utils.ClassUtils;
@@ -16,6 +17,11 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 
     /** BeanPostProcessors to apply in createBean */
     private final List<BeanPostProcessor> beanPostProcessors = new ArrayList<BeanPostProcessor>();
+
+    /**
+     * String resolvers to apply e.g. to annotation attribute values
+     */
+    private final List<StringValueResolver> embeddedValueResolvers = new ArrayList<>();
 
     @Override
     public Object getBean(String name) throws BeansException {
@@ -80,5 +86,10 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
         }
 
         return object;
+    }
+
+    @Override
+    public void addEmbeddedValueResolver(StringValueResolver valueResolver) {
+        this.embeddedValueResolvers.add(valueResolver);
     }
 }

@@ -1,6 +1,6 @@
 package test14.bean;
 
-import io.unnode.beans.autoscan.annotation.Component;
+import io.unnode.beans.annotationconfig.autoscan.annotation.Component;
 
 import java.util.Random;
 

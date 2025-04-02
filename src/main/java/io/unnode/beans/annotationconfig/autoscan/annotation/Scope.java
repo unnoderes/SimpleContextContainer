@@ -1,4 +1,4 @@
-package io.unnode.beans.autoscan.annotation;
+package io.unnode.beans.annotationconfig.autoscan.annotation;
 
 import java.lang.annotation.*;
 

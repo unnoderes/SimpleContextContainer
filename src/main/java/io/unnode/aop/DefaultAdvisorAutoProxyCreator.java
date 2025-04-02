@@ -3,6 +3,7 @@ package io.unnode.aop;
 import io.unnode.beans.BeanFactory;
 import io.unnode.beans.aware.BeanFactoryAware;
 import io.unnode.beans.support.DefaultListableBeanFactory;
+import io.unnode.beans.support.PropertyValues;
 import io.unnode.utils.BeansException;
 import org.aopalliance.aop.Advice;
 import org.aopalliance.intercept.MethodInterceptor;
@@ -59,6 +60,12 @@ public class DefaultAdvisorAutoProxyCreator implements InstantiationAwareBeanPos
 
         return null;
     }
+
+    @Override
+    public PropertyValues postProcessPropertyValues(PropertyValues pvs, Object bean, String beanName) throws BeansException {
+        return pvs;
+    }
+
     private boolean isInfrastructureClass(Class<?> beanClass) {
         return Advice.class.isAssignableFrom(beanClass) || Pointcut.class.isAssignableFrom(beanClass) || Advisor.class.isAssignableFrom(beanClass);
     }

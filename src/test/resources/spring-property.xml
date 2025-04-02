@@ -6,7 +6,7 @@
 	         http://www.springframework.org/schema/beans/spring-beans.xsd
 		 http://www.springframework.org/schema/context">
 
-    <bean class="io.unnode.beans.autoscan.PropertyPlaceholderConfigurer">
+    <bean class="io.unnode.beans.annotationconfig.autoscan.PropertyPlaceholderConfigurer">
         <property name="location" value="classpath:token.properties"/>
     </bean>
 

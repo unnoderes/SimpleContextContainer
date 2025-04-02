@@ -1,7 +1,7 @@
-package io.unnode.beans.autoscan;
+package io.unnode.beans.annotationconfig.autoscan;
 
 import cn.hutool.core.util.ClassUtil;
-import io.unnode.beans.autoscan.annotation.Component;
+import io.unnode.beans.annotationconfig.autoscan.annotation.Component;
 import io.unnode.beans.support.BeanDefinition;
 
 import java.util.LinkedHashSet;

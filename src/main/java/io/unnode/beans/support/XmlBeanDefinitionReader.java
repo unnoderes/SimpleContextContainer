@@ -1,19 +1,16 @@
 package io.unnode.beans.support;
 
 import cn.hutool.core.util.StrUtil;
-import cn.hutool.core.util.XmlUtil;
 import io.unnode.beans.AbstractBeanDefinitionReader;
 import io.unnode.beans.BeanDefinitionRegistry;
-import io.unnode.beans.autoscan.ClassPathBeanDefinitionScanner;
+import io.unnode.beans.annotationconfig.autoscan.ClassPathBeanDefinitionScanner;
 import io.unnode.core.Resource;
 import io.unnode.core.ResourceLoader;
 import io.unnode.utils.BeansException;
 import org.dom4j.DocumentException;
 import org.dom4j.io.SAXReader;
 import org.dom4j.Document;
-import org.dom4j.DocumentException;
 import org.dom4j.Element;
-import org.dom4j.io.SAXReader;
 
 import java.io.IOException;
 import java.io.InputStream;
