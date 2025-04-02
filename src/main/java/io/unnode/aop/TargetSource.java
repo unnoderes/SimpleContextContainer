@@ -1,5 +1,7 @@
 package io.unnode.aop;
 
+import io.unnode.utils.ClassUtils;
+
 /**
  * A <code>TargetSource</code> is used to obtain the current "target" of
  * an AOP invocation, which will be invoked via reflection if no around
@@ -22,11 +24,20 @@ public class TargetSource {
      * <p>Can return <code>null</code>, although certain usages of a
      * <code>TargetSource</code> might just work with a predetermined
      * target class.
+     *
      * @return the type of targets returned by this {@link TargetSource}
+     *
+     * 判断CGlib or JDK对象
+     * TargetSource 对象内的 getTargetClass() 方法用于获取 target 对象的接口信息;
+     * 此 target 可能由JDK代理或CGlib代理创建;
+     * 增加判断 ClassUtils.isCglibProxyClass(clazz), 以保证皆可获取正确结果.
      */
-    public Class<?>[] getTargetClass(){
-        return this.target.getClass().getInterfaces();
+    public Class<?>[] getTargetClass() {
+        Class<?> clazz = this.target.getClass();
+        clazz = ClassUtils.isCglibProxyClass(clazz) ? clazz.getSuperclass() : clazz;
+        return clazz.getInterfaces();
     }
+
 
     /**
      * Return a target instance. Invoked immediately before the
