@@ -10,7 +10,7 @@ public class ApiTest {
     @Test
     public void test_prototype() {
         // 1.初始化 BeanFactory
-        ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:spring.xml");
+        ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:spring-15.xml");
         applicationContext.registerShutdownHook();
 
         // 2. 获取Bean对象调用方法
@@ -29,7 +29,7 @@ public class ApiTest {
     @Test
     public void test_factory_bean() {
         // 1.初始化 BeanFactory
-        ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:spring.xml");
+        ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:spring-15.xml");
         applicationContext.registerShutdownHook();
         // 2. 调用代理方法
         UserService userService = applicationContext.getBean("userService", UserService.class);

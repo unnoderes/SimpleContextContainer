@@ -16,7 +16,7 @@ public class ApiTest {
 
         // 2. 读取配置文件&注册Bean
         XmlBeanDefinitionReader reader = new XmlBeanDefinitionReader(beanFactory);
-        reader.loadBeanDefinitions("classpath:spring.xml");
+        reader.loadBeanDefinitions("classpath:spring-15.xml");
 
         // 3. BeanDefinition 加载完成 & Bean实例化之前，修改 BeanDefinition 的属性值
         MyBeanFactoryPostProcessor beanFactoryPostProcessor = new MyBeanFactoryPostProcessor();
