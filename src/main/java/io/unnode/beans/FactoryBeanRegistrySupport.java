@@ -3,6 +3,7 @@ package io.unnode.beans;
 import io.unnode.beans.support.DefaultSingletonBeanRegistry;
 import io.unnode.utils.BeansException;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -12,7 +13,7 @@ public abstract class FactoryBeanRegistrySupport extends DefaultSingletonBeanReg
      * Cache of singleton objects created by FactoryBeans: FactoryBean name --> object
      */
     private final Map<String, Object> factoryBeanObjectCache = new ConcurrentHashMap<String, Object>();
-
+    
     /**
      * FactoryBeanRegistrySupport 类用于处理关于 FactoryBean 此类对象的注册操作;
      * 定义缓存操作 factoryBeanObjectCache，用于存放单例类型的对象，避免重复创建;

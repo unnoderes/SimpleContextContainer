@@ -33,19 +33,28 @@
     -->
 
 
-<!--    <bean id="userService" class="test10.bean.UserService" scope="prototype">
+<!--
+    <bean id="userService" class="test10.bean.UserService" scope="prototype">
         <property name="uId" value="10001"/>
         <property name="company" value="xxx"/>
         <property name="location" value="yyy"/>
         <property name="userDao" ref="proxyUserDao"/>
     </bean>
 
-    <bean id="proxyUserDao" class="test10.bean.ProxyBeanFactory"/>-->
+    <bean id="proxyUserDao" class="test10.bean.ProxyBeanFactory"/>
+    -->
 
+<!--
     <bean class="test11.event.ContextRefreshedEventListener"/>
-
     <bean class="test11.event.CustomEventListener"/>
-
     <bean class="test11.event.ContextClosedEventListener"/>
+    -->
+
+    <bean id="userService" class="test12.bean.UserService">
+        <property name="uId" value="10001"/>
+        <property name="company" value="xxx"/>
+        <property name="location" value="yyy"/>
+        <property name="userDao" ref="userDao"/>
+    </bean>
 
 </beans>
