@@ -1,4 +1,4 @@
-package test16.bean;
+package test16.bean02;
 
 import io.unnode.beans.annotationconfig.autodi.annotation.Autowired;
 import io.unnode.beans.annotationconfig.autodi.annotation.Value;
@@ -6,7 +6,7 @@ import io.unnode.beans.annotationconfig.autoscan.annotation.Component;
 
 import java.util.Random;
 
-@Component("userService")
+@Component
 public class UserService implements IUserService {
 
     @Value("${token}")
@@ -21,7 +21,7 @@ public class UserService implements IUserService {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        return userDao.queryUserName("10001") + "，" + token;
+        return userDao.queryUserName("10001") + token;
     }
 
     public String register(String userName) {
@@ -33,24 +33,11 @@ public class UserService implements IUserService {
         return "注册用户：" + userName + " success！";
     }
 
-    @Override
-    public String toString() {
-        return "UserService#token = { " + token + " }";
-    }
-
     public String getToken() {
         return token;
     }
 
     public void setToken(String token) {
         this.token = token;
-    }
-
-    public UserDao getUserDao() {
-        return userDao;
-    }
-
-    public void setUserDao(UserDao userDao) {
-        this.userDao = userDao;
     }
 }

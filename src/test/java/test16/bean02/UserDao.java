@@ -1,4 +1,4 @@
-package test16.bean;
+package test16.bean02;
 
 import io.unnode.beans.annotationconfig.autoscan.annotation.Component;
 
@@ -11,13 +11,11 @@ public class UserDao {
     private static Map<String, String> hashMap = new HashMap<>();
 
     static {
-        hashMap.put("10001", "unnode1，shenyang，heping");
-        hashMap.put("10002", "unnode2，beijing，haidian");
-        hashMap.put("10003", "unnode3，yingkou，zhanqian");
+        hashMap.put("10001", "unnodeX，xxx，111");
+        hashMap.put("10002", "unnodeY，yyy，222");
     }
 
     public String queryUserName(String uId) {
         return hashMap.get(uId);
     }
-
 }

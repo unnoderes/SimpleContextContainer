@@ -1,4 +1,4 @@
-package test16.bean;
+package test16.bean01;
 
 public interface IUserService {
 
