@@ -1,6 +1,6 @@
 package test10;
 
-import io.unnode.context.support.ClassPathXmlApplicationContext;
+import io.unnode.context.ClassPathXmlApplicationContext;
 import org.junit.Test;
 import test10.bean.UserService;
 import org.openjdk.jol.info.ClassLayout;

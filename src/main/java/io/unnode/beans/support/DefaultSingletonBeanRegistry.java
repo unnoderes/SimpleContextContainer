@@ -5,8 +5,10 @@ import io.unnode.beans.SingletonBeanRegistry;
 import io.unnode.utils.BeansException;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class DefaultSingletonBeanRegistry implements SingletonBeanRegistry {
 
@@ -16,9 +18,9 @@ public class DefaultSingletonBeanRegistry implements SingletonBeanRegistry {
      */
     protected static final Object NULL_OBJECT = new Object();
 
-    Map<String, Object> singletonPool = new HashMap<>();
+    Map<String, Object> singletonPool = new ConcurrentHashMap<>();
 
-    private final Map<String, DisposableBean> disposableBeans = new HashMap<>();
+    private final Map<String, DisposableBean> disposableBeans = new LinkedHashMap<>();
 
     @Override
     public Object getSingleton(String beanName) {
@@ -27,6 +29,10 @@ public class DefaultSingletonBeanRegistry implements SingletonBeanRegistry {
 
     public void addSingleton(String beanName, Object singletonBean){
         singletonPool.put(beanName, singletonBean);
+    }
+
+    public void registerSingleton(String beanName, Object singletonObject) {
+        singletonPool.put(beanName, singletonObject);
     }
 
     public void registerDisposableBean(String beanName, DisposableBean bean) {

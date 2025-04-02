@@ -1,6 +1,6 @@
 package test08;
 
-import io.unnode.context.support.ClassPathXmlApplicationContext;
+import io.unnode.context.ClassPathXmlApplicationContext;
 import org.junit.Test;
 import test08.bean.UserService;
 

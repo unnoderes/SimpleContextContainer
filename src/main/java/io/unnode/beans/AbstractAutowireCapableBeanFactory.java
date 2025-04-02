@@ -13,6 +13,16 @@ import io.unnode.utils.BeansException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 
+/**
+ * Abstract bean factory superclass that implements default bean creation,
+ * with the full capabilities specified by the class.
+ * Implements the {@link AutowireCapableBeanFactory}
+ * interface in addition to AbstractBeanFactory's {@link #createBean} method.
+ * <p>
+ *
+ *
+ *
+ */
 public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFactory implements AutowireCapableBeanFactory {
 
     private InstantiationStrategy instantiationStrategy = new CglibSubclassingInstantiationStrategy();

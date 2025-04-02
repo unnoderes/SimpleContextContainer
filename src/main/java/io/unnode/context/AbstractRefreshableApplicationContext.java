@@ -4,6 +4,13 @@ import io.unnode.beans.ConfigurableListableBeanFactory;
 import io.unnode.beans.support.DefaultListableBeanFactory;
 import io.unnode.utils.BeansException;
 
+/**
+ * Base class for {@link ApplicationContext}
+ * implementations which are supposed to support multiple calls to {@link #refresh()},
+ * creating a new internal bean factory instance every time.
+ * Typically (but not necessarily), such a context will be driven by
+ * a set of config locations to load bean definitions from.
+ */
 public abstract class AbstractRefreshableApplicationContext extends AbstractApplicationContext {
 
     private DefaultListableBeanFactory beanFactory;

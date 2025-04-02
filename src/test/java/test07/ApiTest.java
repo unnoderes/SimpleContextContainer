@@ -1,7 +1,7 @@
 package test07;
 
 import io.unnode.beans.support.*;
-import io.unnode.context.support.ClassPathXmlApplicationContext;
+import io.unnode.context.ClassPathXmlApplicationContext;
 import org.junit.Test;
 import test07.bean.UserService;
 import test07.common.MyBeanFactoryPostProcessor;
